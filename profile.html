@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- (Copy the <head> section and the #wrapper, #sidebar-wrapper, and <nav> from admin.html) -->
+  <!-- The only difference is the <main> content -->
+  <main class="container-fluid p-lg-4 p-3">
+    <section id="profile-settings" class="admin-section">
+      <h1 class="section-header">Profile Settings</h1>
+      <p class="lead text-muted mb-4">Manage your admin profile information.</p>
+      <div class="card glass-card">
+        <div class="card-body">
+          <form id="profile-form">
+            <div class="text-center mb-4">
+              <img
+                src="https://via.placeholder.com/120"
+                id="profileAvatar"
+                class="rounded-circle"
+                alt="Avatar"
+                width="120"
+                height="120"
+              />
+              <input type="file" class="form-control mt-3" id="avatarUpload" />
+            </div>
+            <div class="mb-3">
+              <label for="fullName" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="fullName" required />
+            </div>
+            <div class="mb-3">
+              <label for="profileEmail" class="form-label">Email Address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="profileEmail"
+                readonly
+              />
+            </div>
+            <hr class="my-4" />
+            <h5 class="mb-3">Change Password</h5>
+            <div class="mb-3">
+              <label for="newPassword" class="form-label"
+                >New Password (leave blank to keep current)</label
+              >
+              <input type="password" class="form-control" id="newPassword" />
+            </div>
+            <button type="submit" class="btn btn-success">
+              Update Profile
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- ... (rest of the HTML structure from admin.html) -->
+</html>

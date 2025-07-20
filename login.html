@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Sign In - Biomed Solutions</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="css/admin.css" />
+  </head>
+  <body class="login-page">
+    <div
+      id="toast-container"
+      class="toast-container position-fixed top-0 end-0 p-3"
+    ></div>
+
+    <div id="login-overlay">
+      <div class="login-content">
+        <i class="bi bi-fingerprint"></i>
+        <h2>Authorizing</h2>
+        <p>Verifying credentials, please wait...</p>
+      </div>
+    </div>
+
+    <div class="preloader">
+      <div class="spinner"></div>
+    </div>
+
+    <div class="bg-animation">
+      <div id="stars"></div>
+      <div id="stars2"></div>
+      <div id="stars3"></div>
+      <div id="stars4"></div>
+    </div>
+
+    <div class="auth-container">
+      <div class="card glass-card auth-card">
+        <div class="card-body">
+          <div class="text-center mb-4">
+            <img src="img/logo.png" alt="Biomed Logo" class="auth-logo" />
+            <h3 class="auth-title mt-3">Admin Panel Access</h3>
+            <p class="auth-subtitle">Secure sign in required to continue</p>
+          </div>
+          <form id="login-form" novalidate>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <div class="input-icon-wrapper">
+                <i class="bi bi-envelope-fill form-icon"></i>
+                <input type="email" class="form-control" id="email" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <div class="input-icon-wrapper">
+                <i class="bi bi-lock-fill form-icon"></i>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  required
+                />
+                <i class="bi bi-eye-slash-fill password-toggle-icon"></i>
+              </div>
+            </div>
+            <div class="text-end mb-4">
+              <a href="forgot-password.html" class="auth-link"
+                >Forgot Password?</a
+              >
+            </div>
+            <div class="error-message"></div>
+            <div class="d-grid">
+              <button
+                class="btn btn-primary btn-lg auth-btn"
+                type="submit"
+                id="login-button"
+              >
+                <span class="btn-text">Authorize</span>
+                <span class="spinner-border spinner-border-sm"></span>
+              </button>
+            </div>
+          </form>
+          <div class="auth-links text-center mt-4">
+            Need access? <a href="signup.html">Request Account</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth-api.js"></script>
+  </body>
+</html>

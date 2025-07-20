@@ -1,0 +1,844 @@
+/* =================================================================== */
+/*             BIOMED SOLUTIONS - UNIFIED ADMIN STYLESHEET             */
+/* =================================================================== */
+/* This single file styles ALL admin-related pages, including the      */
+/* dashboard, login, signup, and forgot password pages.                */
+/* =================================================================== */
+
+/* =================================================================== */
+/*                         1. THEME & ROOT VARIABLES                   */
+/* =================================================================== */
+:root {
+  --admin-bg: #0d1117;
+  --admin-component-bg: #161b22;
+  --admin-border-color: #30363d;
+  --admin-accent-primary: #00aeff;
+  --admin-accent-secondary: #0077b6;
+  --admin-text-primary: #e6edf3;
+  --admin-text-secondary: #7d8590;
+  --admin-success: #28a745;
+  --admin-danger: #ef4444;
+  --admin-info: #3b82f6;
+  --admin-glow-accent: rgba(0, 174, 255, 0.4);
+  --admin-card-bg-translucent: rgba(22, 27, 34, 0.75);
+}
+
+/* =================================================================== */
+/*                         2. GENERAL & BASE SETUP                     */
+/* =================================================================== */
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--admin-bg);
+  color: var(--admin-text-primary);
+  overflow-x: hidden;
+}
+
+.bg-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+@keyframes move-stars {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-2000px);
+  }
+}
+#stars,
+#stars2,
+#stars3,
+#stars4 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: move-stars 200s linear infinite;
+  background: url(https://www.transparenttextures.com/patterns/stardust.png);
+}
+#stars2 {
+  animation-delay: -50s;
+  animation-duration: 150s;
+}
+#stars3 {
+  animation-delay: -100s;
+  animation-duration: 250s;
+}
+#stars4 {
+  animation-delay: -150s;
+  animation-duration: 300s;
+}
+
+/* =================================================================== */
+/*                   3. LAYOUT (AUTH PAGES vs DASHBOARD)               */
+/* =================================================================== */
+
+/* --- Layout for Auth Pages (Login, Signup, etc.) --- */
+body.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+/* --- Layout for Main Dashboard --- */
+#wrapper {
+  display: flex;
+  transition: all 0.3s ease;
+}
+
+/* =================================================================== */
+/*                      4. DASHBOARD-SPECIFIC COMPONENTS               */
+/* =================================================================== */
+
+/* --- Sidebar --- */
+.sidebar-wrapper {
+  background-color: var(--admin-component-bg);
+  width: 250px;
+  min-height: 100vh;
+  transition: margin 0.3s ease-in-out;
+  flex-shrink: 0;
+  border-right: 1px solid var(--admin-border-color);
+  animation: slideInRight 0.6s 0.1s ease-out forwards;
+  opacity: 0;
+}
+.sidebar-heading a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.5rem;
+  padding: 1.5rem 1.25rem;
+  display: block;
+  text-align: center;
+  text-shadow: 0 0 10px var(--admin-glow-accent);
+}
+.list-group-item {
+  background: transparent !important;
+  color: var(--admin-text-secondary) !important;
+  border: none !important;
+  padding: 1rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-left: 4px solid transparent !important;
+}
+.list-group-item:hover,
+.list-group-item.active {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 174, 255, 0.1),
+    transparent
+  ) !important;
+  color: #fff !important;
+  border-left-color: var(--admin-accent-primary) !important;
+  box-shadow: inset 5px 0 15px -5px var(--admin-glow-accent);
+}
+
+/* --- Main Content Area --- */
+#page-content-wrapper {
+  flex-grow: 1;
+  width: calc(100% - 250px);
+  min-width: 0;
+  transition: width 0.3s ease-in-out;
+}
+.admin-section {
+  display: none;
+}
+.admin-section.fade-in-active {
+  display: block;
+  animation: slideInUp 0.7s 0.2s ease-out forwards;
+  opacity: 0;
+}
+@keyframes slideInRight {
+  from {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slideInUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.section-header {
+  font-size: 2rem;
+  color: var(--admin-text-primary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--admin-border-color);
+}
+.lead.text-muted {
+  color: var(--admin-text-secondary) !important;
+}
+
+/* --- Top Header Nav --- */
+.admin-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  animation: slideInUp 0.6s 0.3s ease-out forwards;
+  opacity: 0;
+  background-color: rgba(22, 27, 34, 0.7) !important;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--admin-border-color) !important;
+  color: #fff;
+}
+.admin-nav .container-fluid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+}
+.admin-nav .navbar-brand-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.admin-nav .navbar-profile-group {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+#profile-dropdown .dropdown-toggle img {
+  border: 2px solid var(--admin-border-color);
+  transition: border-color 0.3s ease;
+}
+#profile-dropdown .dropdown-toggle:hover img {
+  border-color: var(--admin-accent-primary);
+}
+#profile-dropdown .dropdown-toggle::after {
+  display: none;
+}
+#profile-dropdown .dropdown-menu {
+  background: var(--admin-card-bg-translucent) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid var(--admin-border-color) !important;
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+  margin-top: 0.75rem !important;
+}
+#profile-dropdown .dropdown-item {
+  color: var(--admin-text-secondary);
+  font-weight: 500;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+#profile-dropdown .dropdown-item:hover,
+#profile-dropdown .dropdown-item:focus {
+  background-color: var(--admin-accent-primary);
+  color: #fff;
+}
+#profile-dropdown .dropdown-divider {
+  border-top: 1px solid var(--admin-border-color);
+}
+
+/* =================================================================== */
+/*                        5. AUTH-PAGE COMPONENTS                      */
+/* =================================================================== */
+.auth-container {
+  width: 100%;
+  max-width: 450px;
+  z-index: 1;
+}
+.auth-card {
+  background: var(--admin-card-bg-translucent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 1rem;
+  border: 1px solid var(--admin-border-color);
+  padding: 2rem 2.5rem;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  animation: fadeInAuth 1s ease-out;
+}
+@keyframes fadeInAuth {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.auth-logo {
+  width: 80px;
+  filter: drop-shadow(0 0 15px var(--admin-glow-accent));
+}
+.auth-title {
+  color: var(--admin-text-primary);
+  font-weight: 700;
+  font-size: 1.75rem;
+}
+.auth-subtitle {
+  color: var(--admin-text-secondary);
+  font-size: 0.95rem;
+}
+.auth-link {
+  color: var(--admin-text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+.auth-link:hover {
+  color: var(--admin-accent-primary);
+}
+.auth-links {
+  color: var(--admin-text-secondary);
+}
+.auth-links a {
+  color: var(--admin-accent-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
+/* =================================================================== */
+/*                      6. SHARED COMPONENTS (FORMS, ETC)              */
+/* =================================================================== */
+
+/* --- General Cards (used in dashboard) --- */
+.glass-card {
+  background: var(--admin-component-bg);
+  border: 1px solid var(--admin-border-color);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.card-title {
+  color: var(--admin-text-primary);
+  opacity: 0.9;
+}
+/* --- Forms (Unified Style) --- */
+.form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.form-group label,
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--admin-text-secondary);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+/* Specific styles ONLY for the futuristic auth pages */
+.auth-card .form-group label {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  /* 1. Force the text color to be our bright theme color */
+  -webkit-text-fill-color: var(--admin-text-primary) !important;
+
+  /* 2. Use a box-shadow trick to paint over the browser's background */
+  box-shadow: 0 0 0 1000px var(--admin-component-bg) inset !important;
+
+  /* 3. (Optional but recommended) A subtle transition for the autofill */
+  transition: background-color 5000s ease-in-out 0s;
+}
+.input-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+/* Base input style for ALL pages */
+.form-control {
+  background: var(--admin-bg) !important;
+  border: 1px solid var(--admin-border-color) !important;
+  border-radius: 0.5rem;
+  color: var(--admin-text-primary) !important;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+.form-control:focus {
+  box-shadow: 0 0 15px var(--admin-glow-accent);
+  border-color: var(--admin-accent-primary) !important;
+  background: var(--admin-component-bg) !important;
+}
+/* Specific background for auth page inputs */
+.auth-card .form-control {
+  background: rgba(13, 17, 23, 0.8) !important;
+}
+
+.input-icon-wrapper .form-control {
+  padding-right: 3rem;
+}
+.form-icon {
+  position: absolute;
+  color: var(--admin-text-secondary);
+  pointer-events: none;
+  left: 1rem;
+  z-index: 2;
+}
+.password-toggle-icon {
+  position: absolute;
+  color: var(--admin-text-secondary);
+  pointer-events: all;
+  cursor: pointer;
+  left: auto;
+  right: 1rem;
+  z-index: 2;
+  transition: color 0.3s ease, transform 0.1s ease;
+}
+.password-toggle-icon:hover {
+  color: var(--admin-accent-primary);
+}
+.password-toggle-icon:active {
+  transform: scale(0.85);
+}
+.form-control:focus {
+  box-shadow: 0 0 15px var(--admin-glow-accent);
+  border-color: var(--admin-accent-primary);
+  background: var(--admin-component-bg);
+}
+.input-icon-wrapper:focus-within .form-icon:not(.password-toggle-icon) {
+  color: var(--admin-accent-primary);
+}
+
+/* --- Password Criteria Checklist --- */
+#password-criteria {
+  font-size: 0.85rem;
+  padding-left: 0.5rem;
+  margin-top: -1rem;
+}
+.criteria-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--admin-text-secondary);
+  transition: color 0.4s ease;
+  margin-bottom: 0.35rem;
+}
+.criteria-item .icon-complete {
+  display: none;
+}
+.criteria-item .icon-incomplete {
+  display: inline-block;
+}
+.criteria-item.valid {
+  color: var(--admin-success);
+  font-weight: 500;
+}
+.criteria-item.valid .icon-complete {
+  display: inline-block;
+}
+.criteria-item.valid .icon-incomplete {
+  display: none;
+}
+
+/* --- Buttons (Unified Style) --- */
+.btn-primary,
+.auth-btn {
+  background-image: linear-gradient(
+    45deg,
+    var(--admin-accent-primary),
+    var(--admin-accent-secondary)
+  );
+  border: none;
+  font-weight: 500;
+  padding: 0.8rem;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+.btn-primary:hover,
+.auth-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(0, 174, 255, 0.4);
+}
+.btn-primary::before,
+.auth-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+.btn-primary:hover::before,
+.auth-btn:hover::before {
+  left: 100%;
+}
+.btn .spinner-border {
+  display: none;
+}
+.btn.loading .spinner-border {
+  display: inline-block;
+}
+.btn.loading .btn-text {
+  display: none;
+}
+
+/* --- Stat Cards (Dashboard) --- */
+.stat-card {
+  color: #fff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  transition: all 0.3s ease;
+  border: 1px solid var(--admin-border-color);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  animation: pulse-glow 3s infinite alternate;
+}
+@keyframes pulse-glow {
+  from {
+    box-shadow: 0 0 5px -2px var(--admin-glow-accent),
+      inset 0 0 10px rgba(65, 133, 244, 0.1);
+  }
+  to {
+    box-shadow: 0 0 15px 2px var(--admin-glow-accent),
+      inset 0 0 20px rgba(65, 133, 244, 0.2);
+  }
+}
+.stat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  border-color: var(--admin-accent-primary);
+}
+.stat-card[data-section="products"] {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+.stat-card[data-section="messages"] {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+}
+.stat-card .stat-icon {
+  font-size: 3rem;
+  opacity: 0.6;
+}
+.stat-card .stat-info h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.stat-card .stat-info p {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* --- Modals & Toasts --- */
+.modal-content {
+  background-color: var(--admin-component-bg);
+  color: var(--admin-text-primary);
+  border-radius: 1rem;
+  border: 1px solid var(--admin-border-color);
+}
+.toast {
+  background-color: var(--admin-component-bg) !important;
+  color: var(--admin-text-primary) !important;
+  border-radius: 0.75rem !important;
+  border: 1px solid var(--admin-border-color) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(10px);
+}
+.toast-header {
+  background-color: transparent !important;
+  color: var(--admin-text-secondary) !important;
+  border-bottom: 1px solid var(--admin-border-color) !important;
+}
+.toast.border-success {
+  border-left: 4px solid var(--admin-success) !important;
+}
+.toast.border-danger {
+  border-left: 4px solid var(--admin-danger) !important;
+}
+
+/* =================================================================== */
+/*                       7. RESPONSIVE MEDIA QUERIES                   */
+/* =================================================================== */
+@media (max-width: 991.98px) {
+  .sidebar-wrapper {
+    margin-left: -250px;
+    position: fixed;
+    z-index: 1030;
+    height: 100vh;
+  }
+  #wrapper.toggled .sidebar-wrapper {
+    margin-left: 0;
+  }
+  #page-content-wrapper {
+    width: 100%;
+  }
+}
+
+@media (max-height: 740px) {
+  /* This media query only affects the auth pages */
+  body.login-page .auth-logo,
+  body.login-page .auth-subtitle,
+  body.login-page #password-criteria {
+    display: none;
+  }
+  body.login-page .auth-card {
+    padding: 1.5rem;
+  }
+  body.login-page .auth-title {
+    font-size: 1.4rem;
+    margin-top: 0 !important;
+  }
+  body.login-page .form-group {
+    margin-bottom: 1.25rem;
+  }
+  body.login-page .d-grid {
+    margin-top: 1.5rem !important;
+  }
+}
+
+/* ADD THIS ENTIRE BLOCK TO THE END OF admin.css */
+
+/* =================================================================== */
+/*             9. MODAL & NOTIFICATION VISIBILITY FIXES                */
+/* =================================================================== */
+
+/* --- General Modal Text Brightness --- */
+.modal-content {
+  color: var(--admin-text-primary);
+}
+.modal-header .modal-title {
+  color: #fff; /* Ensure title is bright white */
+  text-shadow: 0 0 5px var(--admin-glow-accent);
+}
+
+/* --- SPECIFIC FIX for View Message Modal --- */
+#viewMessageModal .text-muted {
+  color: var(
+    --admin-text-secondary
+  ) !important; /* Use the secondary text color for labels */
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+/* Make the actual content (sender, date, body) bright and clear */
+#viewMessageModal p {
+  color: var(--admin-text-primary);
+  font-size: 1.05rem; /* Slightly larger for readability */
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+
+/* Add a distinct, futuristic style for the message body itself */
+#messageModalBody {
+  white-space: pre-wrap; /* Preserves line breaks from the original message */
+  background-color: rgba(0, 0, 0, 0.25); /* Darker inlay for contrast */
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--admin-border-color);
+}
+
+/* ADD THIS ENTIRE BLOCK TO THE END of admin.css */
+
+/* =================================================================== */
+/*                10. DYNAMIC LOGOUT OVERLAY STYLES                    */
+/* =================================================================== */
+#logout-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1090; /* Higher than toasts and modals */
+  background-color: rgba(
+    13,
+    17,
+    23,
+    0.85
+  ); /* Dark, semi-transparent background */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Hidden by default */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+#logout-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.logout-content {
+  text-align: center;
+  color: var(--admin-text-primary);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.4s ease 0.2s; /* Add a slight delay for the content to pop in */
+}
+
+#logout-overlay.show .logout-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.logout-content i {
+  font-size: 4rem;
+  color: var(--admin-accent-primary);
+  text-shadow: 0 0 20px var(--admin-glow-accent);
+  margin-bottom: 1rem;
+  display: inline-block;
+  animation: pulse-icon 2s infinite ease-in-out;
+}
+
+@keyframes pulse-icon {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.logout-content h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.logout-content p {
+  font-size: 1rem;
+  color: var(--admin-text-secondary);
+}
+
+/* =================================================================== */
+/*             11. DYNAMIC LOGIN & LOGOUT OVERLAY STYLES               */
+/* =================================================================== */
+
+/* --- Shared Overlay Styles --- */
+#login-overlay,
+#logout-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1090; /* Higher than toasts and modals */
+  background-color: rgba(13, 17, 23, 0.85);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+#login-overlay.show,
+#logout-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* --- Shared Content Styles --- */
+.auth-content,
+.logout-content {
+  text-align: center;
+  color: var(--admin-text-primary);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.4s ease 0.2s; /* Add a slight delay */
+}
+#login-overlay.show .auth-content,
+#logout-overlay.show .logout-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.auth-content i,
+.logout-content i {
+  font-size: 4rem;
+  color: var(--admin-accent-primary);
+  text-shadow: 0 0 20px var(--admin-glow-accent);
+  margin-bottom: 1rem;
+  display: inline-block;
+  animation: pulse-icon 2.5s infinite ease-in-out;
+}
+@keyframes pulse-icon {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+.auth-content h2,
+.logout-content h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+.auth-content p,
+.logout-content p {
+  font-size: 1rem;
+  color: var(--admin-text-secondary);
+}
+
+/* ADD THIS ENTIRE BLOCK TO THE END of admin.css */
+
+/* =================================================================== */
+/*                     8. PROFILE PAGE STYLES                          */
+/* =================================================================== */
+
+.profile-avatar-preview {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--admin-border-color);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+#profile-avatar-form label:hover {
+  box-shadow: 0 0 20px var(--admin-glow-accent);
+}
