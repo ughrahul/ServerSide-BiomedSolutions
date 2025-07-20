@@ -24,8 +24,7 @@ app.get("/reset-password", (req, res) => {
 });
 
 // --- Database Connection ---
-const dbURI =
-  "mongodb+srv://biomed_admin:biomed123@cluster0.xaqujnn.mongodb.net/biomed-website?retryWrites=true&w=majority&appName=Cluster0";
+const dbURI = process.env.DB_URI;
 mongoose
   .connect(dbURI)
   .then(() => console.log("Successfully connected to MongoDB Atlas."))
